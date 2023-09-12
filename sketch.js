@@ -16,7 +16,7 @@ var enemies;
 var bullets;
 
 function setup(){
-	createCanvas(1280, 720);
+	createCanvas(1024, 576);
 	floor_posY = height * 0.8;
 	player.lives = 3;
 	level_length = 3000;
@@ -501,7 +501,7 @@ var instruction = {
 			else if(player.lives<1){
 				text(this.over, width/3, height/2);
 			}
-			else if(player.dropping){
+			else if(player.posY > height){
 				text(this.dead, width/3, height/2);
 			}
 			else if(player.attacked){
@@ -539,12 +539,15 @@ var player = {
 		else if(!this.onBoard){
 			this.jumping = true;
 		}
-		if((this.posY>height*2 || this.attacked) && !flag.reached && this.alive){
+		if((this.posY>height || this.attacked) && !flag.reached && this.alive){
 			this.alive = false;
 			this.lives -= 1;
 			this.lives = max(0, this.lives);
 			if(this.lives>0){
 				this.retriable = true;
+			}
+			else{
+				this.retriable = false;
 			}
 		}
 	},
