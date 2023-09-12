@@ -410,7 +410,7 @@ function bullet(posX, posY, lifetime, direction){
 	this.hit = false;
 	this.check = function(){
 		for(let i=0; i<enemies.length; i++){
-			if(dist(this.posX, this.posY, enemies[i].posX, enemies[i].posY)<50){
+			if(abs(this.posX-enemies[i].posX)<100 && abs(this.posY-enemies[i].posY)<60){
 				this.hit = true;
 				enemies.splice(i, 1);
 			}
