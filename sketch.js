@@ -579,7 +579,7 @@ var player = {
 		if(this.jumping){
 			this.posY += this.velocity;
 			this.velocity += 0.3;
-			this.velocity = min(100, this.velocity);
+			this.velocity = min(10, this.velocity);
 		}
 		if(this.dropping){
 			this.left = false;
@@ -587,7 +587,7 @@ var player = {
 			this.posY += this.velocity;
 			this.velocity += 0.3;
 			this.posY = min(10000, this.posY);
-			this.velocity = min(100, this.velocity);
+			this.velocity = min(10, this.velocity);
 		}
 		if(this.attacked){
 			this.left = false;
