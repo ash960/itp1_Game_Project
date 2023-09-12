@@ -377,13 +377,15 @@ function enemy(posX, posY, veloX, veloY){
 	this.move = function(){
 		if(!this.touched){
 			if(random()>0.999 || this.posX>level_length-50 || this.posX<100){
-				this.direcX *= random(-0.8, -1.25);
+				this.direcX *= -1;
 			}
 			if(random()>0.999 || this.posY>floor_posY+20 || this.posY<100){
-				this.direcY *= random(-0.8, -1.25);
+				this.direcY *= -1;
 			}
-			this.posX += this.direcX * veloX;
-			this.posY += this.direcY * veloY;
+			this.veloX *= this.direcX;
+			this.veloY *= this.direcY;
+			this.posX += this.veloX;
+			this.posY += this.veloY;
 		}
 	}
 	this.draw = function(){
