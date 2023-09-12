@@ -16,7 +16,7 @@ var enemies;
 var bullets;
 
 function setup(){
-	createCanvas(1024, 576);
+	createCanvas(1600, 900);
 	floor_posY = height * 0.8;
 	player.lives = 3;
 	level_length = 3000;
