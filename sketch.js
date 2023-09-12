@@ -16,7 +16,7 @@ var enemies;
 var bullets;
 
 function setup(){
-	createCanvas(1600, 900);
+	createCanvas(960, 640);
 	floor_posY = height * 0.8;
 	player.lives = 3;
 	level_length = 3000;
@@ -481,12 +481,12 @@ var instruction = {
 	noticeMode: false,
 	draw: function(){
 		stroke(5);
-		textSize(20);
+		textSize(15);
 		text('Press I for the instruction.', 20, height-10);
 		text('Press T to retry the same level. Press R to regenerate the level.', 20, height-30);
 		text('Press Space to fire.', 20, height-50);
 		text('Press A to move left, D to move right, W to jump, S to go downward.', 20, height-70);
-		textSize(40);
+		textSize(25);
 		if(this.noticeMode){
 			fill(200);
 			rect(width/4-50, height/4-50, width/2+50, height/2+50);
@@ -505,7 +505,7 @@ var instruction = {
 				text(this.dead, width/3, height/2);
 			}
 			else if(player.attacked){
-				text(this.attacked, width/7, height/2);
+				text(this.attacked, width/8, height/2);
 			}
 		}
 	}
