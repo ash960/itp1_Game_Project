@@ -543,12 +543,12 @@ var player = {
 			this.alive = false;
 			this.lives -= 1;
 			this.lives = max(0, this.lives);
-			if(this.lives>0){
-				this.retriable = true;
-			}
-			else{
-				this.retriable = false;
-			}
+		}
+		if(this.lives>0){
+			this.retriable = true;
+		}
+		else{
+			this.retriable = false;
 		}
 	},
 	move: function(){
