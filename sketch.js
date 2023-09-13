@@ -630,7 +630,7 @@ var player = {
 		}
 	},
 	draw: function(){
-		if(this.left && this.jumping){
+		if(this.left && this.jumping && !this.right){
 			stroke(0);
 			fill(255);
 			strokeWeight(1);
@@ -643,7 +643,7 @@ var player = {
 			point(this.posX-6, this.posY-44);
 			strokeWeight(1);
 		}
-		else if(this.right && this.jumping){
+		else if(this.right && this.jumping && !this.left){
 			stroke(0);
 			fill(255);
 			strokeWeight(1);
