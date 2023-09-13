@@ -154,7 +154,7 @@ function draw(){
 		bullets[i].draw();
 		bullets[i].move();
 		bullets[i].check();
-		if(bullets[i].lifetime<0){
+		if(bullets[i].hit || bullets[i].lifetime<0){
 			bullets.splice(i,1);
 		}
 	}
@@ -385,10 +385,10 @@ function enemy(posX, posY, veloX, veloY){
 	}
 	this.move = function(){
 		if(!this.touched){
-			if(random()>0.999 || this.posX>level_length-50 || this.posX<100){
+			if(random()>0.9999 || this.posX>level_length-50 || this.posX<100){
 				this.direcX *= -1;
 			}
-			if(random()>0.999 || this.posY>floor_posY+20 || this.posY<100){
+			if(random()>0.9999 || this.posY>floor_posY+20 || this.posY<100){
 				this.direcY *= -1;
 			}
 			this.veloX *= this.direcX;
@@ -419,7 +419,7 @@ function bullet(posX, posY, lifetime, direction){
 	this.hit = false;
 	this.check = function(){
 		for(let i=0; i<enemies.length; i++){
-			if(abs(this.posX-enemies[i].posX)<100 && abs(this.posY-enemies[i].posY)<60){
+			if(dist(this.posX, this.posY, enemies[i].posX, (enemies[i].posY-40))<40){
 				this.hit = true;
 				enemies.splice(i, 1);
 			}
@@ -431,10 +431,10 @@ function bullet(posX, posY, lifetime, direction){
 		this.lifetime -= 1;
 	}
 	this.draw = function(){
-		stroke(200);
+		stroke(255);
 		strokeWeight(2);
-		fill(200, 200, 100);
-		ellipse(this.posX, this.posY, 30);
+		fill(250, 120, 50);
+		ellipse(this.posX, this.posY, 20, 10);
 	}
 }
 
