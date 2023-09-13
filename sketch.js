@@ -72,7 +72,7 @@ function setup(){
 		}
 	}
 	for(let i=0; i<level_length/200; i++){
-		let n = new board(random(150, level_length-150), random(100, floor_posY-100), random(70, 200));
+		let n = createBoard(random(150, level_length-150), random(100, floor_posY-100), random(70, 200));
 		boards[i] = n;
 	}
 	for(let i=0; i<boards.length/2; i++){
@@ -336,24 +336,27 @@ function canyon(posX, width){
 	}
 }
 
-function board(posX, posY, width){
-	this.posX = posX;
-	this.posY = posY;
-	this.width = width;
-	this.check = function(){
-		if(abs(player.posX-this.posX)<this.width/2 && abs(player.posY-(this.posY+20))<8 && player.velocity>=0){
-			player.jumping = false;
-			player.velocity = 0;
-			player.posY = this.posY + 20;
-			return true;
+function createBoard(posX, posY, width){
+	var n ={
+		posX: posX,
+		posY: posY,
+		width: width,
+		check: function(){
+			if(abs(player.posX-this.posX)<this.width/2 && abs(player.posY-(this.posY+20))<8 && player.velocity>=0){
+				player.jumping = false;
+				player.velocity = 0;
+				player.posY = this.posY + 20;
+				return true;
+			}
+		},
+		draw: function(){
+			stroke(60, 40, 0);
+			strokeWeight(2);
+			fill(130, 80, 0);
+			rect(this.posX-this.width/2, this.posY, width, 10);
 		}
-	},
-	this.draw = function(){
-		stroke(60, 40, 0);
-		strokeWeight(2);
-		fill(130, 80, 0);
-		rect(this.posX-this.width/2, this.posY, width, 10);
 	}
+	return n;
 }
 
 function enemy(posX, posY, veloX, veloY){
@@ -365,7 +368,7 @@ function enemy(posX, posY, veloX, veloY){
 	this.veloX = veloX;
 	this.veloY = veloY;
 	this.check = function(){
-		if(dist(this.posX, this.posY, player.posX, player.posY)<20){
+		if(dist(this.posX, this.posY, player.posX, player.posY)<30){
 			this.touched = true;
 			return true;
 		}
