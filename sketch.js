@@ -15,6 +15,11 @@ var boards;
 var enemies;
 var bullets;
 
+function preload(){
+	soundFormats('mp3', 'ogg');
+	shooting_sound = loadSound('assets/shooting-sound-fx-159024.mp3')
+}
+
 function setup(){
 	createCanvas(960, 640);
 	floor_posY = height * 0.8;
@@ -188,6 +193,7 @@ function keyPressed(){
 		}
 		n = new bullet(player.posX, player.posY-40, 100, m);
 		bullets.push(n);
+		shooting_sound.play();
 	}
 	if(keyCode == 84 && player.retriable){
 		startGame();
