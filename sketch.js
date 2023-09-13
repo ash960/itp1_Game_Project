@@ -513,7 +513,7 @@ var instruction = {
 		text('Press I for the instruction.', 20, height-10);
 		text('Press T to retry the same level. Press R to regenerate the level.', 20, height-30);
 		text('Press Space to fire.', 20, height-50);
-		text('Press A to move left, D to move right, W to jump, S to go downward.', 20, height-70);
+		text('Press A to move left, D to move right, W to jump, S to jump off.', 20, height-70);
 		textSize(25);
 		if(this.noticeMode){
 			fill(200);
