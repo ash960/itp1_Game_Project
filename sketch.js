@@ -18,6 +18,13 @@ var bullets;
 function preload(){
 	soundFormats('mp3', 'ogg');
 	shooting_sound = loadSound('assets/shooting-sound-fx-159024.mp3')
+	level_passed_sound = loadSound('assets/level-passed-143039.mp3')
+	level_passed_sound.setVolume(0.3);
+	collection_sound = loadSound('assets/collectcoin-6075.mp3')
+	punch_sound = loadSound('assets/punch-140236.mp3')
+	punch_sound.setVolume(0.2);
+	oops_sound = loadSound('assets/high-pitch-oops-46055.mp3')
+	oops_sound.setVolume(0.8);
 }
 
 function setup(){
@@ -98,9 +105,11 @@ function startGame(){
 	player.dropping = false;
 	player.velocity = 0;
 	player.alive = true;
+	player.playsound = 0;
 	flag.posX = level_length;
 	flag.posY = 20;
 	flag.reached = false;
+	flag.playsound = 0;
 	counter.posX = 50;
 	counter.posY = 50;
 }
@@ -191,11 +200,11 @@ function keyPressed(){
 		if(player.left){
 			m = -1;
 		}
-		n = new bullet(player.posX, player.posY-40, 100, m);
+		n = new bullet(player.posX, player.posY-40, width/12, m);
 		bullets.push(n);
 		shooting_sound.play();
 	}
-	if(keyCode == 84 && player.retriable){
+	if(keyCode == 84 && player.retriable && !flag.reached){
 		startGame();
 	}
 }
@@ -290,6 +299,7 @@ function item(posX, posY){
 	this.check = function(){
 		if(dist(player.posX, player.posY, this.posX, this.posY) < 60){
 			this.found = true;
+			collection_sound.play();
 		}
 	}
 	this.draw =  function(){
@@ -422,6 +432,7 @@ function bullet(posX, posY, lifetime, direction){
 			if(dist(this.posX, this.posY, enemies[i].posX, (enemies[i].posY-40))<40){
 				this.hit = true;
 				enemies.splice(i, 1);
+				punch_sound.play();
 			}
 		}
 	}
@@ -442,12 +453,18 @@ var flag = {
 	posX: 0,
 	posY: 0,
 	reached: false,
+	playsound: 0,
 	check: function(){
 		if(player.posX > this.posX){
 			this.reached = true;
 		}
 		if(this.reached){
 			this.posY += 3;
+			this.playsound += 1;
+			if(this.playsound == 1){
+				level_passed_sound.play();
+			}
+			this.playsound = min(2, this.playsound);
 		}
 		this.posY = min(260, this.posY);
 	},
@@ -532,6 +549,7 @@ var player = {
 	attacked: false,
 	alive: true,
 	retriable: false,
+	playsound: 0,
 	left: false,
 	right: false,
 	jumping: false,
@@ -554,6 +572,11 @@ var player = {
 			this.alive = false;
 			this.lives -= 1;
 			this.lives = max(0, this.lives);
+			this.playsound += 1;
+			if(this.playsound == 1){
+				oops_sound.play();
+			}
+			this.playsound = min(2, this.playsound);
 		}
 		if(this.lives>0){
 			this.retriable = true;
