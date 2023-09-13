@@ -395,10 +395,10 @@ function enemy(posX, posY, veloX, veloY){
 	}
 	this.move = function(){
 		if(!this.touched){
-			if(random()>0.9999 || this.posX>level_length-50 || this.posX<100){
+			if(this.posX>level_length-50 || this.posX<100){
 				this.direcX *= -1;
 			}
-			if(random()>0.9999 || this.posY>floor_posY+20 || this.posY<100){
+			if(this.posY>floor_posY+20 || this.posY<100){
 				this.direcY *= -1;
 			}
 			this.veloX *= this.direcX;
